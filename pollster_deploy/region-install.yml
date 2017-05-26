@@ -1,0 +1,29 @@
+---
+- hosts: all
+  tasks:
+  - name: Install pip
+    become: yes
+    apt: pkg=python-pip state=installed update_cache=true
+  - name: Identify Ceilometer installation path
+    shell: pip show ceilometer | grep -i location | tr -s ' ' | cut -d " " -f 2
+    register: ceilometer_path_output
+  - set_fact:
+      ceilometer_path: "{{ ceilometer_path_output.stdout  }}"
+  - name: Region pollster - Customize Ceilometer configuration
+    blockinfile:
+      path: /etc/ceilometer/ceilometer.conf
+      block: |
+        [region]
+        latitude=1.1
+        longitude=12.2
+        location=IT
+        netlist=net04_ext,net05_ext
+        ram_allocation_ratio=1.5
+        cpu_allocation_ratio=16
+  - name: Downlaod FIWARE monitoring
+    git:
+      repo: 'https://github.com/SmartInfrastructures/ceilometer-plugin-fiware.git'
+      dest: /tmp/ceilometer-plugin-fiware
+      version: mitaka_dev
+  - name: Region pollster - Copy pollster files to Ceilometer
+    command: cp -r /tmp/ceilometer-plugin-fiware/region/ "{{ ceilometer_path }}/ceilometer"
