@@ -72,3 +72,6 @@ disable_service tempest
 {% if app_catalog %}
 enable_plugin app-catalog-ui https://git.openstack.org/openstack/app-catalog-ui
 {% endif %}
+
+# Enable the Ceilometer devstack plugin --> https://docs.openstack.org/developer/ceilometer/install/development.html
+enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer stable/newton
