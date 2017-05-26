@@ -358,3 +358,25 @@ the virtual machine, you'll see an error like this:
 #+BEGIN_EXAMPLE
     2016-08-01 05:42:50.237 ERROR nova.scheduler.utils [req-581add06-ba33-4b5d-9a1b-af7c74f3ce86 demo demo] [instance: 70713d2f-96fa-4ee7-a73a-4e019b78b1f9] Error from last host: vagrant-ubuntu-trusty-64 (node vagrant-ubuntu-trusty-64): [u'Traceback (most recent call last):\n', u'  File "/opt/stack/nova/nova/compute/manager.py", line 1926, in _do_build_and_run_instance\n    filter_properties)\n', u'  File "/opt/stack/nova/nova/compute/manager.py", line 2116, in _build_and_run_instance\n    instance_uuid=instance.uuid, reason=six.text_type(e))\n', u"RescheduledException: Build of instance 70713d2f-96fa-4ee7-a73a-4e019b78b1f9 was re-scheduled: internal error: process exited while connecting to monitor: Cannot set up guest memory 'pc.ram': Cannot allocate memory\n\n"]
 #+END_EXAMPLE
+* Tips and Tricks
+** Restart the OpenStack services
+   Each service is inside a =screen= tab session, to access them just type
+   #+BEGIN_SRC sh
+   screen -dr
+   #+END_SRC
+
+   To see a list of screen tabs in a sessions, access the session
+   1) Type =CTRL + a + SHIFT + "=
+   2) Choose the service you want to control
+   3) Press =ENTER=
+** Access the OpenStack services logs
+   Logs are in the relative screen session but they are also saved and persisted into: =/opt/stack/logs=
+** Access the OpenStack CLI using admin
+   When sourcing =/home/vagrant/devstack/openrc= default access is granted with use =demo=. Of course =demo= user is unprivileged and cannot access, for instance, to ceilometer collected data. Indeed you end-up with an empty table out of a ceilometer query.
+
+   To overcome this issue, just change the username to =admin= (/password is the same/)
+   #+BEGIN_SRC sh
+   export OS_USERNAME=admin
+   # Now ceilometer API respond with some results
+   ceilometer meter-list
+   #+END_SRC
