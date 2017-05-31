@@ -366,7 +366,7 @@ the virtual machine, you'll see an error like this:
    #+END_SRC
 
    To see a list of screen tabs in a sessions, access the session
-   1) Type =CTRL + a + SHIFT + "=
+   1) Type ~CTRL + a + SHIFT + "~
    2) Choose the service you want to control
    3) Press =ENTER=
 ** Access the OpenStack services logs
