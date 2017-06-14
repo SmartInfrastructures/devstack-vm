@@ -26,4 +26,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision :shell, :inline => "ovs-vsctl add-port br-ex eth2"
     config.vm.provision :shell, :inline => "virsh net-destroy default"
 
+    # Per project folder mounting. Here is possible to mount the folder of repositories have to be tested inside this OpenStack environment
+    config.vm.synced_folder "HOST_FOLDER_PATH", "GUEST_FOLDER_PATH"
+
 end
