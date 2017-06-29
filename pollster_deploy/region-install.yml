@@ -1,6 +1,10 @@
 ---
 - hosts: all
   tasks:
+  - fail: msg="Variable '{{ item }}' is not defined"
+    when: item not in vars
+    with_items:
+        - branch
   - name: Install pip
     become: yes
     apt: pkg=python-pip state=installed update_cache=true
@@ -24,6 +28,6 @@
     git:
       repo: 'https://github.com/SmartInfrastructures/ceilometer-plugin-fiware.git'
       dest: /tmp/ceilometer-plugin-fiware
-      version: mitaka_dev
+      version: "{{ branch }}"
   - name: Region pollster - Copy pollster files to Ceilometer
     command: cp -r /tmp/ceilometer-plugin-fiware/region/ "{{ ceilometer_path }}/ceilometer"
