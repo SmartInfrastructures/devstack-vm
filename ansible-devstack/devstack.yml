@@ -11,6 +11,7 @@
     keyring_config_dir: /home/vagrant/.local/share/python_keyring
     app_catalog: False
     ceilometer: True
+    hostname: devstack
     ## Following variables are passed from the Vagrantfile or via --extra-vars
     # public_ip: 192.168.27.100
     # floating_ip_range: 172.24.4.0/24
@@ -23,6 +24,11 @@
          - version
          - public_ip
          - floating_ip_range
+
+    - name: set hostname
+      become: True
+      hostname:
+        name={{ hostname }}
 
     - name: create keyring config directory
       file: >
