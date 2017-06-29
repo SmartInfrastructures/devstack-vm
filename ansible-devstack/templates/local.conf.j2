@@ -77,4 +77,7 @@ enable_plugin app-catalog-ui https://git.openstack.org/openstack/app-catalog-ui
 # See:
 # - https://github.com/openstack/deb-ceilometer/blob/0958f16a14687cd70a8fee5622e947eb70a84d44/devstack/README.rst
 # - https://docs.openstack.org/developer/ceilometer/install/development.html
-enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer stable/newton
+{% if ceilometer %}
+# Enable Ceilometer
+enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer {{ version }}
+{% endif %}
