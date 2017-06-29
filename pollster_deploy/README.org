@@ -6,3 +6,8 @@
    #+BEGIN_SRC sh
    ansible-playbook -e "branch=newton" --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory ../pollster_deploy/region-install.yml
    #+END_SRC
+
+   Solve error about /Too many authentication failures for vagrant/ injecting personal public ssh key into the vagrant guest
+   #+BEGIN_SRC
+   cat ~/.ssh/id_rsa.pub | vagrant ssh -- "cat >> ~/.ssh/authorized_keys && echo "---> KEYS ON GUEST ARE:" && cat ~/.ssh/authorized_keys"
+   #+END_SRC
