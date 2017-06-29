@@ -24,8 +24,8 @@ Vagrant.configure("2") do |config|
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", 6144]
         vb.customize ["modifyvm", :id, "--cpus", 2]
-       	# eth2 must be in promiscuous mode for floating IPs to be accessible
-       	vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+        # eth2 must be in promiscuous mode for floating IPs to be accessible
+        vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
     end
     config.vm.provision :ansible do |ansible|
         ansible.host_key_checking = false
@@ -47,5 +47,4 @@ Vagrant.configure("2") do |config|
 
     # Per project folder mounting. Here is possible to mount the folder of repositories have to be tested inside this OpenStack environment
     config.vm.synced_folder "/Users/acca/dsantoro@create-net.org/work/repositories/fi-next/fiware-lab-refenv", "/home/vagrant/fiware-lab-refenv"
-
 end
