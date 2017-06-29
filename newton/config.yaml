@@ -1,0 +1,8 @@
+---
+os_release:
+  vm_name: 'newton'
+  os_release: 'stable/newton'
+  public_ip: '192.168.27.100'
+  floating_ip_net: '172.24.4.225'
+  floating_ip_range: '172.24.4.0/24'
+  floating_ip_netmask: '255.255.255.0'

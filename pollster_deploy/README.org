@@ -1,0 +1,8 @@
+* Pollster deploy
+  This folder contains a collection of Ansible recipes to automatically install FIWARE pollsters in a FIWARE region
+* How to
+** Region pollster
+   Install in OpenStack Newton with:
+   #+BEGIN_SRC sh
+   ansible-playbook -e "branch=newton" --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory ../pollster_deploy/region-install.yml
+   #+END_SRC

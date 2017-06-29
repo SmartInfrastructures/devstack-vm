@@ -1,16 +1,25 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
+current_dir = File.dirname(File.expand_path(__FILE__))
+configs = YAML.load_file("#{current_dir}/config.yaml")
+# Variables
+vm_name = configs['os_release']['vn_name']
+public_ip = configs['os_release']['public_ip']
+floating_ip_net = configs['os_release']['floating_ip_net']
+floating_ip_range = configs['os_release']['floating_ip_range']
+floating_ip_netmask = configs['os_release']['floating_ip_netmask']
 
 Vagrant.configure("2") do |config|
-
     config.vm.box = "ubuntu/trusty64"
+    config.vm.hostname = vm_name
     config.ssh.forward_agent = true
     # eth1, this will be the endpoint
-    config.vm.network :private_network, ip: "192.168.27.100"
+    config.vm.network :private_network, ip: public_ip
     # eth2, this will be the OpenStack "public" network
     # ip and subnet mask should match floating_ip_range var in devstack.yml
-    config.vm.network :private_network, ip: "172.24.4.225", :netmask => "255.255.255.0", :auto_config => false
+    config.vm.network :private_network, ip: floating_ip_net, :netmask => floating_ip_netmask, :auto_config => false
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", 6144]
         vb.customize ["modifyvm", :id, "--cpus", 2]
@@ -19,14 +28,19 @@ Vagrant.configure("2") do |config|
     end
     config.vm.provision :ansible do |ansible|
         ansible.host_key_checking = false
-        ansible.playbook = "devstack.yml"
+        ansible.playbook = "../ansible-devstack/devstack.yml"
         ansible.verbose = "v"
+        ansible.extra_vars = {
+            version: "stable/newton",
+            public_ip: public_ip,
+            floating_ip_range: floating_ip_range
+        }
     end
     config.vm.provision :shell, :inline => "cd devstack; sudo -u vagrant env HOME=/home/vagrant ./stack.sh"
     config.vm.provision :shell, :inline => "ovs-vsctl add-port br-ex eth2"
     config.vm.provision :shell, :inline => "virsh net-destroy default"
 
     # Per project folder mounting. Here is possible to mount the folder of repositories have to be tested inside this OpenStack environment
-    config.vm.synced_folder "HOST_FOLDER_PATH", "GUEST_FOLDER_PATH"
+    config.vm.synced_folder "/Users/acca/dsantoro@create-net.org/work/repositories/fi-next/fiware-lab-refenv", "/home/vagrant/fiware-lab-refenv"
 
 end

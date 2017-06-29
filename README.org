@@ -3,25 +3,32 @@
   :CUSTOM_ID: neutron-enabled-devstack-in-a-vagrant-vm-with-ansible
   :END:
 
-This repository contains a Vagrantfile and an accompanying Ansible
-playbook that sets up a VirtualBox virtual machine that installs
+This repository contains few Vagrantfiles and an accompanying Ansible
+playbook that sets up a VirtualBox virtual machines that installs
 [[http://devstack.org][DevStack]].
+Those virtual machines are used as a reference environment to test FIWARE monitoring tools.
+
+OpenStack versions currently supported are:
+|------------+---------------------------------+----------------|
+| OS Version | Horizon IP                      | Vagrant folder |
+|------------+---------------------------------+----------------|
+| Mitaka     | http://192.168.28.100/dashboard | [[file:mitaka/][Mitaka]]              |
+| Newton     | http://192.168.27.100/dashboard | [[file:newton/][Newton]]         |
+|------------+---------------------------------+----------------|
+
 
 You'll also be able to ssh directly from your laptop into the VMs
 without needing to the ssh into the Vagrant box first.
 
 Ansible generates a =local.conf= file that defaults to:
 
--  Use Neutron for networking
--  Disable security groups
--  No Application Catalog
+- Use Neutron for networking
+- Disable security groups
+- No Application Catalog
+- Install Ceilometer
 
 You can enable Swift, Heat, Application Catalog and security groups by
 editing the devstack.yml file.
-
-This project was inspired by Brian Waldon's
-[[https://github.com/bcwaldon/vagrant_devstack][vagrant\_devstack]]
-repository.
 
 ** Memory usage
    :PROPERTIES:
@@ -146,7 +153,7 @@ To run as the admin user:
    :CUSTOM_ID: horizon
    :END:
 
--  URL: http://192.168.27.100
+-  URL: http://192.168.27.100 (see above for IP/Version mapping)
 -  Username: admin or demo
 -  Password: password
 
@@ -380,3 +387,5 @@ the virtual machine, you'll see an error like this:
    # Now ceilometer API respond with some results
    ceilometer meter-list
    #+END_SRC
+** FIWARE monitoring Pollster automatic installation
+   See [[file:pollster_deploy/][this folder]]
