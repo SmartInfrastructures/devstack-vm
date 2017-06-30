@@ -24,6 +24,7 @@
          - version
          - public_ip
          - floating_ip_range
+         - floating_ip_gw
 
     - name: set hostname
       become: True

@@ -6,3 +6,4 @@ os_release:
   floating_ip_net: '172.24.5.225'
   floating_ip_range: '172.24.5.0/24'
   floating_ip_netmask: '255.255.255.0'
+  floating_ip_gw: '172.24.5.1'
