@@ -7,3 +7,10 @@ os_release:
   floating_ip_range: '172.24.4.0/24'
   floating_ip_netmask: '255.255.255.0'
   floating_ip_gw: '172.24.4.1'
+folder_mount:
+  - name: Project 1
+    src: path_to_project1_on_host
+    dst: path_to_project1_on_guest
+  - name: Project 2
+    src: path_to_project2_on_host
+    dst: path_to_project2_on_guest
