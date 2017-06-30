@@ -2,6 +2,11 @@
 - hosts: all
   vars:
     netlist: net04_ext,net05_ext
+    latitude: 1.1
+    longitude: 12.2
+    location: IT
+    ram_allocation_ratio: 1.5
+    cpu_allocation_ratio: 16
   tasks:
   - fail: msg="Variable '{{ item }}' is not defined"
     when: item not in vars
@@ -20,12 +25,12 @@
       path: /etc/ceilometer/ceilometer.conf
       block: |
         [region]
-        latitude=1.1
-        longitude=12.2
-        location=IT
+        latitude= {{ latitude }}
+        longitude= {{ longitude }}
+        location={{ location}}
         netlist= {{ netlist }}
-        ram_allocation_ratio=1.5
-        cpu_allocation_ratio=16
+        ram_allocation_ratio= {{ ram_allocation_ratio }}
+        cpu_allocation_ratio= {{ cpu_allocation_ratio }}
   - name: Downlaod FIWARE monitoring version "{{ branch }}"
     git:
       repo: 'https://github.com/SmartInfrastructures/ceilometer-plugin-fiware.git'

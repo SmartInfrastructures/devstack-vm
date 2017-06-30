@@ -2,7 +2,18 @@
   This folder contains a collection of Ansible recipes to automatically install FIWARE pollsters in a FIWARE region
 * How to
 ** Region pollster
-   Install in OpenStack Newton with:
+   Open the Ansible recipe =region-install.yml= and customize the variables at the very beginning in the =vars= block reflecting your region configurations:
+   #+BEGIN_EXAMPLE
+   vars:
+    netlist: net04_ext,net05_ext
+    latitude: 1.1
+    longitude: 12.2
+    location: IT
+    ram_allocation_ratio: 1.5
+    cpu_allocation_ratio: 16
+   #+END_EXAMPLE
+
+   It is possible to choose the pollster version specifying the right branch to pull from GitHub: install in OpenStack Newton with:
    #+BEGIN_SRC sh
    ansible-playbook -e "branch=newton" --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory ../pollster_deploy/region-install.yml
    #+END_SRC
