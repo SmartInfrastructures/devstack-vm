@@ -387,6 +387,11 @@ the virtual machine, you'll see an error like this:
    # Now ceilometer API respond with some results
    ceilometer meter-list
    #+END_SRC
+
+   Otherwise just source with admin user:
+   #+BEGIN_SRC sh
+   source ~/devstack/openrc admin
+   #+END_SRC
 ** FIWARE monitoring Pollster automatic installation
    See [[file:pollster_deploy/][this folder]]
 ** Resume a DevStack deployment after errors
