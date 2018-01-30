@@ -1,24 +1,17 @@
 * Pollster deploy
-  This folder contains a collection of Ansible recipes to automatically install FIWARE pollsters in a FIWARE region
+  This folder contains instructions explaining how to use [[https://github.com/SmartInfrastructures/ceilometer-plugin-fiware/tree/master/pollster_deploy][Ansible recipes that install FIWARE pollsters]] in this development/reference environment based on Vagrant.
 * How to
-** Region pollster
-   Open the Ansible recipe =region-install.yml= and customize the variables at the very beginning in the =vars= block reflecting your region configurations:
-   #+BEGIN_EXAMPLE
-   vars:
-    netlist: net04_ext,net05_ext
-    latitude: 1.1
-    longitude: 12.2
-    location: IT
-    ram_allocation_ratio: 1.5
-    cpu_allocation_ratio: 16
-   #+END_EXAMPLE
+  It is possible to choose the pollster version specifying the right branch to pull from GitHub.
 
-   It is possible to choose the pollster version specifying the right branch to pull from GitHub: install in OpenStack Newton with:
-   #+BEGIN_SRC sh
-   ansible-playbook -e "branch=newton" --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory ../pollster_deploy/region-install.yml
-   #+END_SRC
+  Install *region pollster* in *OpenStack Newton* with:
 
-   Solve error about /Too many authentication failures for vagrant/ injecting personal public ssh key into the vagrant guest
-   #+BEGIN_SRC
-   cat ~/.ssh/id_rsa.pub | vagrant ssh -- "cat >> ~/.ssh/authorized_keys && echo "---> KEYS ON GUEST ARE:" && cat ~/.ssh/authorized_keys"
-   #+END_SRC
+  #+BEGIN_SRC sh
+  cd ./newton
+  vagrant up
+  ansible-playbook -e "branch=newton" --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory PATH_TO_CEILOMETER-PLUGIN-FIWARE_REPOSITORY/pollster_deploy/region-install.yml -i ../pollster_deploy/hosts
+  #+END_SRC
+
+  Solve error about /Too many authentication failures for vagrant/ injecting personal public ssh key into the vagrant guest
+  #+BEGIN_SRC
+  cat ~/.ssh/id_rsa.pub | vagrant ssh -- "cat >> ~/.ssh/authorized_keys && echo "---> KEYS ON GUEST ARE:" && cat ~/.ssh/authorized_keys"
+  #+END_SRC
