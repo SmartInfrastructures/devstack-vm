@@ -1,4 +1,5 @@
 ---
+# This is an example for newton
 os_release:
   vm_name: 'newton'
   os_release: 'stable/newton'
