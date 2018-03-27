@@ -1,0 +1,10 @@
+---
+os_release:
+  vm_name: 'ocata'
+  os_release: 'stable/ocata'
+  public_ip: '192.168.26.100'
+  floating_ip_net: '172.24.3.225'
+  floating_ip_range: '172.24.3.0/24'
+  floating_ip_netmask: '255.255.255.0'
+  floating_ip_gw: '172.24.3.1'
+

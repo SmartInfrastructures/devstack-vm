@@ -2,4 +2,6 @@
 vagrant_ansible_inventory_default
 *.retry
 venv
-config.yaml
+mitaka/config.yaml
+newton/config.yaml
+mounts.yaml
