@@ -57,7 +57,11 @@
     - name: source openrc in profile
       lineinfile: dest=/home/vagrant/.profile regexp=".*openrc" line='. /home/vagrant/devstack/openrc'
 
+    - name: Discover name of eth2 interface
+      shell: ls -1 /sys/class/net/ | head -3 | tail -1
+      register: eth2_name
+
     - name: enable eth2
-      command: ip link set dev eth2 up
+      command: ip link set dev {{ eth2_name.stdout }} up
       become: True
 

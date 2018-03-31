@@ -12,9 +12,10 @@ OpenStack versions currently supported are:
 |------------+---------------------------------+----------------|
 | OS Version | Horizon IP                      | Vagrant folder |
 |------------+---------------------------------+----------------|
+| Pike       | http://192.168.25.100/dashboard | [[file:pike][Pike]]           |
 | Ocata      | http://192.168.26.100/dashboard | [[file:ocata][Ocata]]          |
-| Mitaka     | http://192.168.28.100/dashboard | [[file:mitaka/][Mitaka]]         |
 | Newton     | http://192.168.27.100/dashboard | [[file:newton/][Newton]]         |
+| Mitaka     | http://192.168.28.100/dashboard | [[file:mitaka/][Mitaka]]         |
 |------------+---------------------------------+----------------|
 
 
